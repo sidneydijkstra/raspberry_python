@@ -1,7 +1,10 @@
-from bluetooth.ble import DiscoveryService
+import asyncio
+from bleak import discover
 
-service = DiscoveryService()
-devices = service.discover(2)
+async def run():
+    devices = await discover()
+    for d in devices:
+        print(d)
 
-for address, name in devices.items():
-    print("name: {}, address: {}".format(name, address))
+loop = asyncio.get_event_loop()
+loop.run_until_complete(run())
